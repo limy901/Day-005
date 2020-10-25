@@ -1,0 +1,61 @@
+import java.io.*; 
+
+class Grade {
+	BufferedReader br = new BufferedReader (new InputStreamReader(System.in));
+	int kor, eng, math, science;
+
+	Grade(){ //생성자, 만들면 바디안에내용 실행
+		kor = input("국어"); //kor = 새로운 입력값의 객체, input메소드 실행한, "국어" 값을 담음
+		eng = input("영어");
+		math = input("수학");
+		science = input("과학");
+
+		int total = kor + eng + math + science;
+		int avg = total/4;
+		String gra; //학점 나눌때 
+
+		if(avg >= 95){
+			gra = "A+ 입니다. ";
+		} else if (avg>=90)
+		{	gra = "A 입니다. ";
+		} else if (avg>=85)
+	    {   gra = "B+ 입니다. ";
+		} else if (avg>=75)
+		{	gra = "B 입니다. ";
+		} else if (avg>=65)
+		{	gra = "C+ 입니다. ";
+		} else if (avg>=50)
+		{	gra = "C 입니다. ";
+		} else {
+			gra = "F 입니다. 재수강이 요구됩니다.";
+		}
+
+		System.out.println(); //한 칸 띄고,
+		System.out.println("학점 : "+gra+" (총점 : "+total+"점, "+" 평균 : "+avg+"점)");
+	}
+
+	int input(String subject){ //input 메소드
+		System.out.print(subject+" : "); //점수입력문구 출력
+		try { //예외처리
+			String line = br.readLine(); //line이라는 변수만들어서, 키보드입력값을담음.
+			line = line.trim(); //trim:공백없애기
+			int jumsu = Integer.parseInt(line); //변수 값을 스트링 > 인트으로바꿈
+			if(jumsu<0 || jumsu > 100){
+				System.out.println("잘못된 점수입니다. 다시 입력해주세요.");
+				input(subject); //다시 입력받기
+				return -1; //여기서?? -1값이 저장..?
+			}else{
+				return jumsu; //여기서 재입력한 값을 받아와야 하지 않나?
+			}
+		}catch(IOException ie){
+		}catch(NumberFormatException ne){
+			System.out.println("잘못된 점수입니다. 다시 입력해주세요.");
+			input(subject); //다시 입력받음.
+		}
+		return -1; //리턴의 의미?위치?
+	}
+
+	public static void main(String[] args) {
+		new Grade();
+	}
+}
